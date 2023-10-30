@@ -2,7 +2,8 @@
 
 # What is Terraform?
 Terraform is an infrastructure as code tool that lets you build, change, and version cloud and on-prem resources safely and efficiently
-
+{HashiCorp Terraform is an infrastructure as code tool that lets you define both cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share. You can then use a consistent workflow to provision and manage all of your infrastructure throughout its lifecycle. Terraform can manage low-level components like compute, storage, and networking resources, as well as high-level components like DNS entries and SaaS features.
+}
 
 # Difference between terraform and ansible
 
@@ -11,6 +12,55 @@ Terraform provides a mechanism to manage the status of infrastructure resources 
 # Install Terraform
 
 https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+# Terraform AWS Provider link 
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+
+Create a file 
+Main.tf
+  
+Aws configure —profile new 
+   Provide the access key 
+   Provide the secret key 
+
+Provider “aws” {
+  Region = “us-east-1”
+  Profile = “new”
+}
+
+resource "aws_instance" "web" {
+  ami = “ami provide” 
+  instance_type = "t2.micro"
+}
+
+We need to init the file 
+terraform init
+Ls .terraform
+Terraform plan (use to plan the resources)
+Terraform apply (to apply the file)
+Enter a value = yes (to approve)
+
+
+ 
++ create 
+~ modified 
+- delete
+
+resource "aws_instance" "web" {
+  ami = “ami provide” 
+  instance_type = "t2.micro"
+  Key_name = “mmm”
+}
+
+Terraform init
+Terraform plan 
+Terraform apply —auto-approve 
+
+
+H.w 
+Create 5 aws user with terraform 
+Add all users to group cdecb12 
+Create 5 s3 buckets
 
 
 
