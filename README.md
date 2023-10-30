@@ -17,6 +17,7 @@ https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
 Create a file 
+
 Main.tf
   
 Aws configure —profile new 
