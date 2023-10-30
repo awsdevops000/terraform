@@ -78,6 +78,8 @@ https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs
 docker install krna jauri h 
 sudo chown $USER /var/run/docker.sock -----> ya command sa sudo lana ki jurt nhi hogi
 
+touch main.tf
+
 terraform {
   required_providers {
     docker = {
