@@ -54,7 +54,7 @@ resource "aws_security_group" "sg" {
 
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id =  aws_vpc.first-vpc.id
+  vpc_id = aws_vpc.first-vpc.id
 
   tags = {
     Name = "igw-vpc-first"
@@ -62,11 +62,13 @@ resource "aws_internet_gateway" "igw" {
 }
 
 
-resource "aws_internet_gateway_attachment" "igw-vpc" {
-  internet_gateway_id = aws_internet_gateway.igw.id
-  vpc_id              = aws_vpc.first-vpc.id
-}
+#resource "aws_internet_gateway" "igw-vpc01" {
+#  vpc_id   = aws_vpc.first-vpc.id
 
+#  tags = {
+#    Name = "internet-getway"
+#  }
+#}
 
 
 resource "aws_vpc" "first-vpc01" {
@@ -95,30 +97,26 @@ resource "aws_route_table_association" "a" {
 
 
 resource "aws_key_pair" "key" {
-  key_name   = "terraform-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYu+fPAkktvezzuypWMfPU7IKFZQw5ofMA8PN+FE3wl9FiXhJeSX5EnShN6tqUlnvvSgoOYRbr3RJ01fBvbjriDKwkkqm8Kmq8Wo2uDVDhqxdKFpRn0VmzzGf0Tw0Tcbmm49JjhBoCokKaNZowM0O5dbJp/yNkIJy1nptg0utnXXrkpBfnnNIqG5kIJ5pQd245hp0OfBI+Td8AGVSDEGAJ36ZXQqo7DWntil4mUJ/SlelsLgvoGEYPBBNU3NmgALuLjWzacSthCQxNJsX781mVl1qZVeJRtSN6EcC5m3bfWTuLhufYkxx61ZDvOARozwPZDeP9bM6/rpQ3SEwxH5s59JVrobklm+wbot56IOngsh12qOh2uQYB4jhTCKGFOGfmkkHqI4dyK4t4xWvw/Qy54szgVewBGB80XdzabLrNkc/gve+Z7bWvUCkBQ54+s23GN1Z4R4l6VBWC+5mODecwyuug+jbT8yoeujgcsL8k2AiSRTs4NZC8tpjhrO79sP8= ubuntu@ip-172-31-8-14"
+  key_name   = "id_rsa.pub"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCmm2v8Ave+1mWnHVHBVjAdqMuZYeYnjNGnP3vh8vlqM+sekOVk1kJXkgolzEm9z7yi8DkLc5lDemU0aQWT71c92numcDpl20KesE1irN5xD+Vgm1tfSFhNWN7MZH6zydL0/4mqWow5JFsorGXUdAI8k3ceLxejs/0QZ9iBSvCuybl/ANJBElZxxBWDGqoBRbwcvgi6CHazdXHBzoaRkSTMciyQwMbIl7CV7U159Seh3Zv1jszV7fvG5exDSnwv7xM4xf9wyVgEouZy2PNvrlWbAhkoUbIyOnC8eCHC+tdqcyX49PQ7YJJ73dH6RkZQoniAKuuuyQubiJECGiXT4j4MVHqXFvCXuWE4J3uQTCnBrrJM2D6Jh/0GDOOEmExLNDqwflWwFE8bCjkUbpJ4KY4Pcy/p5RScpKbMep6KnEk0+5pTg7/BFChnkRJFvd8sCo7MO0uTTndmG8jRNiWc0zbUo5Q2SmjMQ4T7AwLJPWshWcWicEtZyUhvbkHAbRHJLfs= ubuntu@ip-172-31-10-35"
 }
 
 
-resource "aws_eip" "lb" {
-  instance = aws_instance.web.id
-  domain   = "vpc"
 
 resource "aws_instance" "public-instance" {
   ami           = "ami-0361bbf2b99f46c1d" 
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public-sub.id
   vpc_security_group_ids  = [aws_security_group.sg.id]
-  key_name   = "terraform-key"
+  key_name   = "id_rsa.pub"
 
   tags = {
     Name = "publice-instance"
   }
 }
 
-}
 
-resource "aws_eip" "public-lb" {
+resource "aws_eip" "lb" {
   instance = aws_instance.public-instance.id
   domain   = "vpc"
 }
